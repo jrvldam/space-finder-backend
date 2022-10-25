@@ -1,0 +1,35 @@
+{
+  "name": "space-finder-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "cdk:deploy": "node_modules/.bin/cdk deploy",
+    "cdk:diff": "node_modules/.bin/cdk diff",
+    "cdk:synth": "node_modules/.bin/cdk synth",
+    "cdk": "node_modules/.bin/cdk"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jrvldam/space-finder-backend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jrvldam/space-finder-backend/issues"
+  },
+  "homepage": "https://github.com/jrvldam/space-finder-backend#readme",
+  "devDependencies": {
+    "@types/node": "^18.11.4",
+    "aws-cdk": "^2.47.0",
+    "aws-cdk-lib": "^2.47.0",
+    "constructs": "^10.1.137",
+    "esbuild": "^0.15.12",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.8.4"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.1240.0"
+  }
+}
