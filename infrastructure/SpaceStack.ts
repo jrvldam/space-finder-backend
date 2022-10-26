@@ -29,6 +29,13 @@ export class SpaceStack extends Stack {
     const helloLambdaResource = api.root.addResource('hello')
     helloLambdaResource.addMethod('GET')
 
-    new GenericTable('SpacesTable', 'spaceId', this)
+    const spacesTable = new GenericTable(this, {
+      tableName: 'SpacesTable',
+      primaryKey: 'spaceId',
+      createLambdaPath: 'Create',
+    })
+
+    const spaceResource = api.root.addResource('spaces')
+    spaceResource.addMethod('POST', spacesTable.createLambdaIntegration)
   }
 }

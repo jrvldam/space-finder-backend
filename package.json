@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/jrvldam/space-finder-backend#readme",
   "devDependencies": {
+    "@types/aws-lambda": "^8.10.108",
     "@types/node": "^18.11.4",
     "aws-cdk": "^2.47.0",
     "aws-cdk-lib": "^2.47.0",
