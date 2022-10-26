@@ -26,7 +26,7 @@ export class SpaceStack extends Stack {
       proxy: false,
     })
 
-    const helloLambdaResource = api.root.addResource('hello')
+    const helloLambdaResource = api.root.addResource('hello') // add the endpoint
     helloLambdaResource.addMethod('GET')
 
     const spacesTable = new GenericTable(this, {
