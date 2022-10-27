@@ -21,11 +21,11 @@ async function handler(event: APIGatewayProxyEvent, _context: Context): Promise<
       TableName: TABLE_NAME!,
       Item: item,
     }).promise()
+
+    result.body = `Created with id: ${item.spaceId}`
   } catch (err) {
     result.body = err instanceof Error ? err.message : 'Unknown error while put on DynamoDB'
   }
-
-  result.body = `Created with id: ${item.spaceId}`
 
   return result
 }

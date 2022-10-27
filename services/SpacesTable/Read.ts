@@ -29,7 +29,7 @@ async function handler(event: APIGatewayProxyEvent, _context: Context): Promise<
 }
 
 async function queryWithSecondaryPartition(queryParams: APIGatewayProxyEventQueryStringParameters): Promise<string> {
-  const [queryKey, queryValue] = Object.entries(queryParams)[0]
+  const [[queryKey, queryValue]] = Object.entries(queryParams)
   const queryResponse = await dbClient.query({
     TableName: TABLE_NAME,
     IndexName: queryKey,
