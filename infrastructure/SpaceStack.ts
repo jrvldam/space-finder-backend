@@ -35,6 +35,7 @@ export class SpaceStack extends Stack {
       primaryKey: 'spaceId',
       createLambdaPath: 'Create',
       readLambdaPath: 'Read',
+      secondaryIndexes: ['location'],
     })
 
     // Spaces api integration
