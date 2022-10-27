@@ -26,6 +26,7 @@ export class SpaceStack extends Stack {
       proxy: false,
     })
 
+    // Hello api lambda integration
     const helloLambdaResource = api.root.addResource('hello') // add the endpoint
     helloLambdaResource.addMethod('GET')
 
@@ -33,9 +34,12 @@ export class SpaceStack extends Stack {
       tableName: 'SpacesTable',
       primaryKey: 'spaceId',
       createLambdaPath: 'Create',
+      readLambdaPath: 'Read',
     })
 
+    // Spaces api integration
     const spaceResource = api.root.addResource('spaces')
     spaceResource.addMethod('POST', spacesTable.createLambdaIntegration)
+    spaceResource.addMethod('GET', spacesTable.readLambdaIntegration)
   }
 }
