@@ -1,6 +1,7 @@
 import { DynamoDB } from 'aws-sdk'
 import { APIGatewayProxyEvent, APIGatewayProxyResult, Context } from 'aws-lambda'
 import { randomUUID } from 'crypto'
+import { MissingFieldError, validateAsSpaceEntry } from '../Shared/InputValidator'
 
 const TABLE_NAME = process.env.TABLE_NAME
 const dbClient = new DynamoDB.DocumentClient()
@@ -11,12 +12,13 @@ async function handler(event: APIGatewayProxyEvent, _context: Context): Promise<
     body: 'Hello from DynamoDB!',
   }
 
-  const item = {
-    ...(typeof event.body === 'object' ? event.body : JSON.parse(event.body)),
-    spaceId: randomUUID(),
-  }
-
   try {
+    const item = {
+      ...(typeof event.body === 'object' ? event.body : JSON.parse(event.body)),
+      spaceId: randomUUID(),
+    }
+    validateAsSpaceEntry(item)
+
     await dbClient.put({
       TableName: TABLE_NAME!,
       Item: item,
@@ -24,7 +26,13 @@ async function handler(event: APIGatewayProxyEvent, _context: Context): Promise<
 
     result.body = `Created with id: ${item.spaceId}`
   } catch (err) {
-    result.body = err instanceof Error ? err.message : 'Unknown error while put on DynamoDB'
+    if (err instanceof MissingFieldError) {
+      result.statusCode = 403
+      result.body = err.message
+    } else {
+      result.statusCode = 500
+      result.body = err instanceof Error ? err.message : 'Unknown error while dealing with DynamoDB'
+    }
   }
 
   return result

@@ -1,5 +1,6 @@
 import { DynamoDB } from 'aws-sdk'
 import { APIGatewayProxyEvent, APIGatewayProxyResult, Context } from 'aws-lambda'
+import { getEventBody } from './Utils'
 
 const TABLE_NAME = process.env.TABLE_NAME!
 const PRIMARY_KEY = process.env.PRIMARY_KEY!
@@ -11,7 +12,7 @@ async function handler(event: APIGatewayProxyEvent, _context: Context): Promise<
     body: 'Hello from DynamoDB!',
   }
 
-  const requestBody = typeof event.body === 'object' ? event.body : JSON.parse(event.body)
+  const requestBody = getEventBody(event)
   const spaceId = event.queryStringParameters?.[PRIMARY_KEY]
 
   if (requestBody && spaceId) {
